@@ -5,6 +5,9 @@
  */
 package runner;
 
+import java.awt.*;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author benny
@@ -16,7 +19,25 @@ public class GameRunner extends javax.swing.JFrame {
      */
     public GameRunner() {
         initComponents();
+        setContentPane(new GamePanel());
+        gui();
     }
+    
+    private Cursor  cursor;
+    private Toolkit kit;
+    private Image   cursorImage;
+    
+    public void gui() {
+        
+        kit = Toolkit.getDefaultToolkit();
+        
+        cursorImage = new ImageIcon("img/compass.png").getImage();
+        cursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "CustomCursor");
+        setSize(1000, 800);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setCursor(cursor);
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -5,18 +5,56 @@
  */
 package runner;
 
+import gameClasses.GameRules;
+import gameClasses.KeyboardListener;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
+import javax.swing.Timer;
+
 /**
  *
  * @author benny
  */
 public class GamePanel extends javax.swing.JPanel {
-
+    
+    private GameRules gameRules;
+    private Image backgroundImage;
     /**
      * Creates new form GamePanel
      */
     public GamePanel() {
+        
+        backgroundImage = new ImageIcon("img/sky_night.png").getImage();
+        gameRules = new GameRules();
+        
+        setFocusable(true);
+        requestFocusInWindow();
+        
+        KeyboardListener gameKeyListener = new KeyboardListener(gameRules.getGun());
+        addKeyListener(gameKeyListener);
+        
+        Timer t = new Timer(10, new ActionListener(){
+            public void actionPerformed(ActionEvent e){ 
+                gameRules.moveAll();
+                gameRules.crash();
+                
+                //call paintComponent()
+                repaint();
+            }
+        });
+        t.start();
+        
     }
-
+    
+    @Override
+    public void paintComponent(Graphics g) {
+        g.drawImage(backgroundImage, 0, 0, null);
+        gameRules.drawAll(g);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
