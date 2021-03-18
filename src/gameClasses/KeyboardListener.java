@@ -14,9 +14,11 @@ import java.awt.event.KeyListener;
  */
 public class KeyboardListener implements KeyListener {
     private Gun shooter;
+    private GameRules game;
     
-    public KeyboardListener(Gun g) {
+    public KeyboardListener(Gun g, GameRules game) {
         this.shooter = g;
+        this.game = game;
     }
 
     @Override
@@ -28,7 +30,7 @@ public class KeyboardListener implements KeyListener {
             shooter.moveLeft();
         }
         else if(e.getKeyCode() == KeyEvent.VK_SPACE){
-            shooter.shoot();
+            shooter.shoot(game);
         }
     }
     

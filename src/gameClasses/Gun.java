@@ -6,6 +6,7 @@
 package gameClasses;
 
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 /**
@@ -34,7 +35,7 @@ public class Gun extends AbstractGameEntity {
         setX(x + mvt);
     }
     
-    public void shoot() {
-        GameRules.addGameEntity(new Shot(this.getXCentre() - 24, this.getY(), shotImg, -30));
+    public void shoot(GameRules g) {
+        g.addGameEntity(new Shot(this.getXCentre() - 24, this.getY(), shotImg, -30));
     }
 }

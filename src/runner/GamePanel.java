@@ -33,10 +33,10 @@ public class GamePanel extends javax.swing.JPanel {
         setFocusable(true);
         requestFocusInWindow();
         
-        KeyboardListener gameKeyListener = new KeyboardListener(gameRules.getGun());
+        KeyboardListener gameKeyListener = new KeyboardListener(gameRules.getGun(), gameRules);
         addKeyListener(gameKeyListener);
         
-        Timer t = new Timer(10, new ActionListener(){
+        Timer t = new Timer(30, new ActionListener(){
             public void actionPerformed(ActionEvent e){ 
                 gameRules.moveAll();
                 gameRules.crash();

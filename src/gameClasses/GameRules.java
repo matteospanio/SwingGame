@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  * @author benny
  */
 public class GameRules {
-    private static ArrayList<AbstractGameEntity> pedine = new ArrayList<AbstractGameEntity>();;
+    private ArrayList<AbstractGameEntity> pedine = new ArrayList<AbstractGameEntity>();;
     private Image alien;
     private Image gun;
     private Image shot;
@@ -63,15 +63,19 @@ public class GameRules {
                     if (pedine.get(i) instanceof Alien && pedine.get(j) instanceof Shot) {
                         pedine.remove(j);
                         pedine.remove(i);
-                    } else if (pedine.get(i) instanceof Gun && pedine.get(j) instanceof Alien) {
-                        JFrame parent = new JFrame();
-                        parent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                        JOptionPane.showMessageDialog(parent, "LOSER :P");
+                    } /*else if (pedine.get(i) instanceof Shot && pedine.get(i).getY() <= -1600) {
+                        pedine.remove(i);
+                    }*/else if (pedine.get(i) instanceof Gun && pedine.get(j) instanceof Alien) {
+                        System.out.println("hai perso");
+                        //JFrame parent = new JFrame();
+                        //parent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        //JOptionPane.showMessageDialog(parent, "LOSER :P");
                     }
-                    if (pedine.size() == 1) {
-                        JFrame parent = new JFrame();
-                        parent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                        JOptionPane.showMessageDialog(parent, "Congrats, you Won!!");
+                    if (pedine.size() <= 2) {
+                        System.out.println("hai vinto");
+                        //JFrame parent = new JFrame();
+                        //parent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        //JOptionPane.showMessageDialog(parent, "Congrats, you Won!!");
                     }
                 }
             }
@@ -82,7 +86,7 @@ public class GameRules {
         
     }
     
-    public static void addGameEntity(AbstractGameEntity gameEntity){
+    public void addGameEntity(AbstractGameEntity gameEntity){
         pedine.add(gameEntity);
     }
     
