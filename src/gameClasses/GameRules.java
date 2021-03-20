@@ -32,7 +32,7 @@ public class GameRules {
         pedine.add(shooter);
         
         for (int i = 0; i < 10; i++) {
-            pedine.add(new Alien((int)(Math.random() * 800), -100, alien, 1));
+            pedine.add(new Alien((int)(Math.random() * 800)%100, 200, alien, 1));
         }
         
         
@@ -57,7 +57,6 @@ public class GameRules {
     
     public void crash() {
         for (int i = 0; i < pedine.size(); i++) {
-
             for (int j = i + 1; j < pedine.size(); j++) {
                 if (pedine.get(i).collides(pedine.get(j))) {
                     if (pedine.get(i) instanceof Alien && pedine.get(j) instanceof Shot) {
@@ -66,24 +65,34 @@ public class GameRules {
                     } /*else if (pedine.get(i) instanceof Shot && pedine.get(i).getY() <= -1600) {
                         pedine.remove(i);
                     }*/else if (pedine.get(i) instanceof Gun && pedine.get(j) instanceof Alien) {
-                        System.out.println("hai perso");
-                        //JFrame parent = new JFrame();
-                        //parent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                        //JOptionPane.showMessageDialog(parent, "LOSER :P");
+                        gameOver();
                     }
-                    if (pedine.size() <= 2) {
-                        System.out.println("hai vinto");
-                        //JFrame parent = new JFrame();
-                        //parent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                        //JOptionPane.showMessageDialog(parent, "Congrats, you Won!!");
-                    }
+                    
                 }
             }
         }
+        if (checkWin()) {
+            JFrame parent = new JFrame();
+            parent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            JOptionPane.showMessageDialog(parent, "Congrats, you won!");
+            System.exit(0);
+        }
     }
     
-    public static void gameOver() {
-        
+    public void gameOver() {
+        JFrame parent = new JFrame();
+        parent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JOptionPane.showMessageDialog(parent, "LOSER :P");
+        System.exit(0);
+    }
+    
+    public boolean checkWin() {
+        boolean flag = true;
+        for (AbstractGameEntity age : pedine) {
+            if (age instanceof Alien)
+                flag = false;
+        }
+        return flag;
     }
     
     public void addGameEntity(AbstractGameEntity gameEntity){
