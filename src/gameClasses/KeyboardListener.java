@@ -1,36 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gameClasses;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-/**
- *
- * @author benny
- */
+
 public class KeyboardListener implements KeyListener {
-    private Gun shooter;
+    private Spaceship shooter;
     private GameRules game;
     
-    public KeyboardListener(Gun g, GameRules game) {
+    public KeyboardListener(Spaceship g, GameRules game) {
         this.shooter = g;
         this.game = game;
     }
 
     @Override
     public void keyPressed(KeyEvent e){
-        if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-            shooter.moveRight();
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_LEFT){
-            shooter.moveLeft();
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_SPACE){
-            shooter.shoot(game);
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_RIGHT:
+                shooter.move(shooter.getMvtOffset());
+                break;
+            case KeyEvent.VK_LEFT:
+                shooter.move(shooter.getMvtOffset() * -1);
+                break;
+            case KeyEvent.VK_SPACE:
+                shooter.shoot(game);
+                break;
+            default:
+                break;
         }
     }
     
@@ -39,11 +35,8 @@ public class KeyboardListener implements KeyListener {
         
     }
 
-
-
     @Override
     public void keyReleased(KeyEvent e) {
         
     }
-    
 }

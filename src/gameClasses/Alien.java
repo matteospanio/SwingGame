@@ -1,34 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gameClasses;
 
-import java.awt.Image;
+import javax.swing.*;
 
-/**
- *
- * @author benny
- */
 public class Alien extends AbstractGameEntity {
-    private int mvt;
     
-    public Alien(int x, int y, Image image, int mvt) {
-        super(x, y, image);
-        this.mvt = mvt;
+    public Alien(int x, int y, int speed) {
+        super(x, y, new ImageIcon("img/alien_2.png").getImage(), speed);
     }
 
     @Override
-    public void move() {
+    public void move(int offset) {
         //TODO
         /**
          * si devono muovere lateralmente
          * e quando raggiungono i bordi
          * shiftano in giù
          */
-        setY(getY() + mvt);
-        setX(x + (int)(5 * Math.sin((double)y/100)));
+        this.y += getMvtOffset();
+        this.x += (int)(5 * Math.sin((double)y/100));
     }
     
 }

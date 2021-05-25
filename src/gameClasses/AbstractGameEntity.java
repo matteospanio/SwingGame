@@ -1,81 +1,68 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gameClasses;
 
+import org.jetbrains.annotations.NotNull;
 import java.awt.Image;
 
-/**
- *
- * @author benny
- */
-public abstract class AbstractGameEntity {
+
+public abstract class AbstractGameEntity implements GameEntity {
     
     protected int x;
     protected int y;
+    protected int mvtOffset;
     protected Image image;
     
-    public AbstractGameEntity(int x, int y, Image image) {
+    public AbstractGameEntity(int x, int y, @NotNull Image image, int offset) {
         this.x = x;
         this.y = y;
+        this.mvtOffset = offset;
         this.image = image;
     }
-    
-    //setters and getters
+
+    @Override
     public int getX() {
         return this.x;
     }
-    
+
+    @Override
     public int getY() {
         return this.y;
     }
-    
-    public void setX(int x) {
-        this.x = x;
+
+    @Override
+    public int getMvtOffset() {
+        return mvtOffset;
     }
-    
-    public void setY(int y) {
-        this.y = y;
-    }
-    
+
+    @NotNull
+    @Override
     public Image getImage() {
         return image;
     }
-    
-    // return x of the centre of this game element
-    protected int getXCentre(){
+
+    @Override
+    public int getXCentre(){
         return x + image.getWidth(null) / 2; 
     }
-    
-    // return y of the centre of this game element
-    protected int getYCentre(){
+
+    @Override
+    public int getYCentre(){
         return y + image.getHeight(null) / 2; 
     }
-    
-    private int getRadius(){
-        if(image.getWidth(null) < image.getHeight(null)){
-            return image.getWidth(null) / 2; 
-        }
-        else{
-            return image.getHeight(null) / 2;
-        }
+
+    @Override
+    public int getRadius(){
+        if(image.getWidth(null) < image.getHeight(null))
+            return image.getWidth(null) / 2;
+        return image.getHeight(null) / 2;
     }
-    
-    public abstract void move();
-    
-    public boolean collides(AbstractGameEntity ge){
+
+    @Override
+    public boolean collides(@NotNull GameEntity ge){
         // if the distance between the two centres 
         // is less than the sum of the two radiuses
-        if(Math.sqrt(Math.pow(getXCentre() - ge.getXCentre(), 2) +
-                Math.pow(getYCentre() - ge.getYCentre(), 2)) < getRadius() + 
-                ge.getRadius()){
-            return true;
-        }
-        else{
-            return false;
-        }     
+        return Math.sqrt(Math.pow(getXCentre() - ge.getXCentre(), 2) +
+                Math.pow(getYCentre() - ge.getYCentre(), 2)) < getRadius() +
+                ge.getRadius();
     }
     
 }
