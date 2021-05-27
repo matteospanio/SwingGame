@@ -11,11 +11,11 @@ public class Spaceship extends AbstractGameEntity {
 
     @Override
     public void move(int offset) {
-        x += offset;
+        x+=offset;
     }
 
     public void shoot(GameRules g) {
-        g.getElements().add(new Shot(this.getXCentre() - 24, this.getY(), -30));
+        g.getShots().add(new Shot(this.getXCentre() - 24, this.getY(), -30));
     }
 
 }

@@ -1,7 +1,8 @@
 package gameClasses;
 
 import org.jetbrains.annotations.NotNull;
-import java.awt.Image;
+
+import java.awt.*;
 
 
 public abstract class AbstractGameEntity implements GameEntity {
@@ -54,6 +55,11 @@ public abstract class AbstractGameEntity implements GameEntity {
         if(image.getWidth(null) < image.getHeight(null))
             return image.getWidth(null) / 2;
         return image.getHeight(null) / 2;
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        g.drawImage(this.getImage(), this.getX(), this.getY(), null);
     }
 
     @Override

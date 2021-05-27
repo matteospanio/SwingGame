@@ -1,7 +1,8 @@
 package gameClasses;
 
 import org.jetbrains.annotations.NotNull;
-import java.awt.Image;
+
+import java.awt.*;
 
 public interface GameEntity {
     void move(int offset);
@@ -14,5 +15,7 @@ public interface GameEntity {
     int getXCentre();
     int getYCentre();
     int getRadius();
+
+    void draw(Graphics g);
 
 }

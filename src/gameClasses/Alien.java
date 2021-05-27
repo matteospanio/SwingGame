@@ -17,7 +17,7 @@ public class Alien extends AbstractGameEntity {
          * shiftano in giù
          */
         this.y += getMvtOffset();
-        this.x += (int)(5 * Math.sin((double)y/100));
+        this.x +=  (int)(5 * Math.sin((double)y/100))%100;
     }
     
 }

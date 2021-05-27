@@ -1,98 +1,110 @@
 package gameClasses;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 
 public class GameRules {
-    private final List<GameEntity> elements = new GameMatrix<>();;
+
+    public final Spaceship spaceship;
+    //TODO sto facendo
+    private final List<Alien> aliens;
+    private final List<Shot> shots;
 
     public GameRules() {
-        Spaceship shooter = new Spaceship(350, 640, 10);
-        elements.add(shooter);
-        
+
+        spaceship = new Spaceship(350, 640, 10);
+        aliens = new LinkedList<>();
+        shots = new LinkedList<>();
+
+    }
+
+    public void spawnAliens() {
         for (int i = 0; i < 10; i++) {
-            elements.add(new Alien((int)(Math.random() * 800)%100, 200, 1));
+            aliens.add(new Alien((int)(Math.random() * 800), 200, 1));
         }
-
     }
 
-    public List<GameEntity> getElements() {
-        return elements;
+    public List<Shot> getShots() {
+        return shots;
     }
 
-    public Spaceship getGun() {
-        return (Spaceship) elements.get(0);
+    public List<Alien> getAliens() {
+        return aliens;
     }
+
 
     // TODO: separare la navicella dal resto dell'array
     public void moveAll() {
-        for (GameEntity el : elements) {
-            if (el instanceof Spaceship)
-                el.move(0);
-            else
-                el.move(el.getMvtOffset());
+        for (GameEntity a : aliens) {
+            a.move(a.getMvtOffset());
+        }
+        for (GameEntity s : shots) {
+            s.move(s.getMvtOffset());
         }
     }
 
-    // TODO: se separo la navicella rifare il metodo
     public void drawAll(Graphics g){
-        // for each game element
-        for(GameEntity el: elements){
-            g.drawImage(el.getImage(), el.getX(), el.getY(), null);
-        } 
+        for(GameEntity a : aliens){
+            a.draw(g);
+        }
+        for(GameEntity s : shots){
+            s.draw(g);
+        }
+        spaceship.draw(g);
     }
 
     //TODO: sistema questo metodo, forse va nell'altra classe
     public void collisions() {
-        /* Iterator<GameEntity> it = elements.iterator();
-        while (it.hasNext()) {
-
-            it.next();
-        } */
-        for (int i = 0; i < elements.size(); i++) {
-            for (int j = i + 1; j < elements.size(); j++) {
-                if (elements.get(i).collides(elements.get(j))) {
-                    if (elements.get(i) instanceof Alien && elements.get(j) instanceof Shot) {
-                        elements.remove(j);
-                        elements.remove(i);
-                    } /*else if (pedine.get(i) instanceof Shot && pedine.get(i).getY() <= -1600) {
-                        pedine.remove(i);
-                    }*/else if (elements.get(i) instanceof Spaceship && elements.get(j) instanceof Alien) {
-                        gameOver();
-                    }
-                    
+        for (int i = 0; i < aliens.size(); i++) {
+            if (spaceship.collides(aliens.get(i)))
+                gameOver();
+            for (int j = 0; j < shots.size(); j++) {
+                if (aliens.get(i).collides(shots.get(j))) {
+                    aliens.remove(i);
+                    shots.remove(j);
+                }
+                if (shots.get(j).getY() > 1000) {
+                    shots.remove((j));
                 }
             }
         }
-
-        // TODO: spostare il check?
-        if (checkWin()) {
-            JFrame parent = new JFrame();
-            parent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            JOptionPane.showMessageDialog(parent, "Congrats, you won!");
-            System.exit(0);
-        }
+        /*
+        Iterator<Alien> alienIterator = aliens.iterator();
+        Iterator<Shot> shotIterator = shots.iterator();
+        while (alienIterator.hasNext()) {
+            Alien a = alienIterator.next();
+            if (spaceship.collides(a))
+                gameOver();
+            while (shotIterator.hasNext()) {
+                Shot s = shotIterator.next();
+                if (a.collides(s)) {
+                    alienIterator.remove();
+                    shotIterator.remove();
+                }
+            }
+        }*/
+        checkWin();
     }
     
-    public void gameOver() {
+    private void gameOver() {
         JFrame parent = new JFrame();
         parent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JOptionPane.showMessageDialog(parent, "LOSER :P");
         System.exit(0);
     }
     
-    public boolean checkWin() {
-        boolean flag = true;
-        for (GameEntity ge : elements) {
-            if (ge instanceof Alien)
-                flag = false;
+    private void checkWin() {
+        if (aliens.isEmpty()) {
+            JFrame parent = new JFrame();
+            parent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            JOptionPane.showMessageDialog(parent, "Congrats, you won!");
+            System.exit(0);
         }
-        return flag;
     }
     
 

@@ -6,34 +6,29 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
-import javax.swing.Timer;
+import javax.swing.*;
 
-public class GamePanel extends javax.swing.JPanel {
+public class GamePanel extends JPanel {
     
-    private GameRules gameRules;
-    private Image backgroundImage;
-    /**
-     * Creates new form GamePanel
-     */
+    private final GameRules gameRules;
+
     public GamePanel() {
-        
-        backgroundImage = new ImageIcon("img/sky_night.png").getImage();
         gameRules = new GameRules();
         
         setFocusable(true);
         requestFocusInWindow();
         
-        KeyboardListener gameKeyListener = new KeyboardListener(gameRules.getGun(), gameRules);
+        KeyboardListener gameKeyListener = new KeyboardListener(gameRules.spaceship, gameRules);
         addKeyListener(gameKeyListener);
+
+        gameRules.spawnAliens();
         
-        Timer t = new Timer(60, new ActionListener(){
+        Timer t = new Timer(30, new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 gameRules.moveAll();
                 gameRules.collisions();
 
-                //call paintComponent()
                 repaint();
             }
         });
@@ -43,6 +38,7 @@ public class GamePanel extends javax.swing.JPanel {
     
     @Override
     public void paintComponent(Graphics g) {
+        Image backgroundImage = new ImageIcon("img/sky_night.png").getImage();
         g.drawImage(backgroundImage, 0, 0, null);
         gameRules.drawAll(g);
     }
@@ -50,17 +46,16 @@ public class GamePanel extends javax.swing.JPanel {
     /**
      * This method is called from within the constructor to initialize the form.
      */
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }
