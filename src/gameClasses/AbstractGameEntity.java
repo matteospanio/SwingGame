@@ -63,9 +63,7 @@ public abstract class AbstractGameEntity implements GameEntity {
     }
 
     @Override
-    public boolean collides(@NotNull GameEntity ge){
-        // if the distance between the two centres 
-        // is less than the sum of the two radiuses
+    public boolean hasCollided(@NotNull GameEntity ge){
         return Math.sqrt(Math.pow(getXCentre() - ge.getXCentre(), 2) +
                 Math.pow(getYCentre() - ge.getYCentre(), 2)) < getRadius() +
                 ge.getRadius();

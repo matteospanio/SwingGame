@@ -6,11 +6,11 @@ import java.awt.event.KeyListener;
 
 public class KeyboardListener implements KeyListener {
     private Spaceship shooter;
-    private GameRules game;
+    private SpawnableMatrix<Spawnable> spawnable;
     
-    public KeyboardListener(Spaceship g, GameRules game) {
+    public KeyboardListener(Spaceship g, SpawnableMatrix<Spawnable> s) {
         this.shooter = g;
-        this.game = game;
+        this.spawnable = s;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class KeyboardListener implements KeyListener {
                 shooter.move(shooter.getMvtOffset() * -1);
                 break;
             case KeyEvent.VK_SPACE:
-                shooter.shoot(game);
+                shooter.shoot(spawnable);
                 break;
             default:
                 break;

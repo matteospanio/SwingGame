@@ -18,7 +18,7 @@ public class GamePanel extends JPanel {
         setFocusable(true);
         requestFocusInWindow();
         
-        KeyboardListener gameKeyListener = new KeyboardListener(gameRules.spaceship, gameRules);
+        KeyboardListener gameKeyListener = new KeyboardListener(gameRules.spaceship, gameRules.spawnables);
         addKeyListener(gameKeyListener);
 
         gameRules.spawnAliens();

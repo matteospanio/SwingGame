@@ -6,7 +6,7 @@ import java.awt.*;
 
 public interface GameEntity {
     void move(int offset);
-    boolean collides(@NotNull GameEntity ge);
+    boolean hasCollided(@NotNull GameEntity ge);
 
     int getX();
     int getY();
