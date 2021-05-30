@@ -16,8 +16,9 @@ public class Alien extends AbstractGameEntity implements Spawnable {
          * e quando raggiungono i bordi
          * shiftano in giù
          */
+
         this.y += getMvtOffset();
-        this.x +=  (int)(5 * Math.sin((double)y/100));
+        this.x += (int)(2 * Math.sin((double)y/100));
     }
 
     @Override

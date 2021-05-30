@@ -2,9 +2,7 @@ package gameClasses;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 
 public class SpawnableMatrix<T extends Spawnable> implements Iterable<T> {
@@ -13,10 +11,12 @@ public class SpawnableMatrix<T extends Spawnable> implements Iterable<T> {
     private final List<T> shots;
 
     public SpawnableMatrix() {
-        aliens = new LinkedList<>();
-        shots = new LinkedList<>();
+        aliens = Collections.synchronizedList(new LinkedList<>());
+        shots = Collections.synchronizedList(new LinkedList<>());
     }
 
+
+    // TODO: rimuovi, funzione di debug
     public void printDim() {
         System.out.printf("aliens: %d\tshots: %d\n", aliens.size(), shots.size());
     }
@@ -41,6 +41,33 @@ public class SpawnableMatrix<T extends Spawnable> implements Iterable<T> {
     }
 
     public void collisions() {
+
+        // questa versione non funziona
+        /*final Iterator<T> it1 = aliens.iterator();
+        final Iterator<T> it2 = shots.iterator();
+
+        while(it1.hasNext()) {
+            while(it2.hasNext()) {
+                T a = it1.next();
+                T b = it2.next();
+                if(a.hasCollided(b)) {
+                    it1.remove();
+                    it2.remove();
+                }
+            }
+        }*/
+
+        // questa da errore ma farebbe la cosa giusta
+        /*for (int i = 0; i < aliens.size(); ++i) {
+            for (int j = 0; j < shots.size(); ++j) {
+                if (aliens.get(i).hasCollided((shots.get(j)))){
+                    aliens.remove(i);
+                    shots.remove(j);
+                }
+            }
+        }*/
+
+        // questa funziona, ma cancella più alieni in contemporanea
         for (Spawnable s : shots) {
             removeIf(f -> s.hasCollided(aliens));
         }

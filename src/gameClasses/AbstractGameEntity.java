@@ -70,6 +70,7 @@ public abstract class AbstractGameEntity implements GameEntity {
                 ge.getRadius();
     }
 
+    @Override
     public boolean hasCollided(@NotNull Collection<? extends GameEntity> c) {
         for (GameEntity g : c) {
             if (this.hasCollided(g)) {

@@ -1,13 +1,12 @@
 package runner;
 
-import gameClasses.GameRules;
-import gameClasses.KeyboardListener;
-import gameClasses.MouseListener;
+import gameClasses.*;
 
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseMotionListener;
+import java.util.function.Predicate;
 import javax.swing.*;
 
 public class GamePanel extends JPanel {
@@ -27,18 +26,20 @@ public class GamePanel extends JPanel {
 
         gameRules.spawnAliens();
 
+        Timer c = new Timer(50, e -> gameRules.collisions());
         Timer a = new Timer(7000, e -> gameRules.spawnAliens());
         Timer t = new Timer(30, new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 gameRules.moveAll();
-                gameRules.collisions();
                 repaint();
             }
         });
 
+        c.start();
         t.start();
         a.start();
+
     }
     
     @Override

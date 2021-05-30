@@ -15,20 +15,21 @@ public class GameRules {
         spawnables = new SpawnableMatrix<>();
     }
 
-    public synchronized void spawnAliens() {
+    public void spawnAliens() {
         for (int i = 0; i < (int) (Math.random()*10 + 1) ; i++) {
             spawnables.add(new Alien((int)(Math.random() * 800), 10, (int) (2 * Math.random()) + 1));
         }
     }
 
-    public synchronized void moveAll() {
-        spawnables.removeIf((x) -> !(x.isVisible()));
+    public void moveAll() {
         for (Spawnable s : spawnables) {
             s.move(s.getMvtOffset());
         }
     }
 
-    public synchronized void drawAll(Graphics g){
+    public void drawAll(Graphics g){
+        spawnables.removeIf((x) -> !(x.isVisible()));
+        // TODO: remove debug purpose function
         spawnables.printDim();
 
         for (Spawnable s : spawnables) {
@@ -38,31 +39,11 @@ public class GameRules {
     }
 
     //TODO: sistema questo metodo, forse va nell'altra classe
-    public synchronized void collisions() {
-        /*List<Spawnable> alienList = spawnables.getAliens();
-        List<Spawnable> shotList = spawnables.getShots();
-        for (Spawnable a : alienList) {
-            for (Spawnable s : shotList) {
-                if (a.hasCollided(s)) {
-                    alienList.remove(a);
-                    shotList.remove(s);
-                }
-            }
-
-        }*/
+    public void collisions() {
         spawnables.collisions();
-        /*for (Spawnable x : spawnables)
-            spawnables.removeIf((y) -> y.hasCollided(x));*/
+
         gameOver();
     }
-    /*    for (int i = 0; i < aliens.size(); i++) {
-            for (int j = 0; j < shots.size(); j++) {
-                if (aliens.get(i).hasCollided(shots.get(j))) {
-                    aliens.remove(i);
-                    shots.remove(j);
-                }
-            }
-        }*/
 
     private void newWindow(String message) {
         JFrame parent = new JFrame();

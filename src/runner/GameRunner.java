@@ -9,7 +9,6 @@ public class GameRunner extends JFrame {
     public GameRunner() {
         initComponents();
         setContentPane(new GamePanel());
-        setSize(1000, 800);
     }
 
     private void initComponents() {
@@ -24,11 +23,11 @@ public class GameRunner extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 1000, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
 
         pack();

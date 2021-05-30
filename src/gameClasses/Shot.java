@@ -11,7 +11,7 @@ public class Shot extends AbstractGameEntity implements Spawnable {
 
     @Override
     public void move(int offset) {
-        y += mvtOffset;
+        y += getMvtOffset();
     }
 
     @Override
