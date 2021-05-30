@@ -17,6 +17,10 @@ public class SpawnableMatrix<T extends Spawnable> implements Iterable<T> {
         shots = new LinkedList<>();
     }
 
+    public void printDim() {
+        System.out.printf("aliens: %d\tshots: %d\n", aliens.size(), shots.size());
+    }
+
     public void add(@NotNull T e) {
         if (e instanceof Alien) {
             aliens.add(e);
@@ -30,8 +34,16 @@ public class SpawnableMatrix<T extends Spawnable> implements Iterable<T> {
         return aliens.isEmpty();
     }
 
-    public boolean removeIf(Predicate<?  super T> filter) {
-        return aliens.removeIf(filter) && shots.removeIf(filter);
+    //TODO: sistemare la concorrenza nella remove e evitare che si spacchi tutto
+    public void removeIf(Predicate<?  super T> filter) {
+        aliens.removeIf(filter);
+        shots.removeIf(filter);
+    }
+
+    public void collisions() {
+        for (Spawnable s : shots) {
+            removeIf(f -> s.hasCollided(aliens));
+        }
     }
 
     @NotNull

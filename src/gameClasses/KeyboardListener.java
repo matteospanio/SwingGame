@@ -5,8 +5,8 @@ import java.awt.event.KeyListener;
 
 
 public class KeyboardListener implements KeyListener {
-    private Spaceship shooter;
-    private SpawnableMatrix<Spawnable> spawnable;
+    private final Spaceship shooter;
+    private final SpawnableMatrix<Spawnable> spawnable;
     
     public KeyboardListener(Spaceship g, SpawnableMatrix<Spawnable> s) {
         this.shooter = g;
