@@ -1,6 +1,7 @@
 package gameClasses;
 
-import java.awt.Image;
+import gameLogic.SpawnableMatrix;
+
 import javax.swing.ImageIcon;
 
 public class Spaceship extends AbstractGameEntity {
@@ -19,7 +20,7 @@ public class Spaceship extends AbstractGameEntity {
         this.y = y;
     }
 
-    public void shoot(SpawnableMatrix<Spawnable> s) {
+    public void shoot(SpawnableMatrix s) {
         s.add(new Shot(this.getXCentre() - 24, this.getY(), -30));
     }
 

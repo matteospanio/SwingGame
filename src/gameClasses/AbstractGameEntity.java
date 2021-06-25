@@ -3,8 +3,6 @@ package gameClasses;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
-import java.util.Collection;
-
 
 public abstract class AbstractGameEntity implements GameEntity {
     
@@ -70,14 +68,4 @@ public abstract class AbstractGameEntity implements GameEntity {
                 ge.getRadius();
     }
 
-    @Override
-    public boolean hasCollided(@NotNull Collection<? extends GameEntity> c) {
-        for (GameEntity g : c) {
-            if (this.hasCollided(g)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    
 }

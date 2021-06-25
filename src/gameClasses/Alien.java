@@ -11,7 +11,7 @@ public class Alien extends AbstractGameEntity implements Spawnable {
     @Override
     public void move(int offset) {
         //TODO
-        /**
+        /*
          * si devono muovere lateralmente
          * e quando raggiungono i bordi
          * shiftano in giù
@@ -23,7 +23,7 @@ public class Alien extends AbstractGameEntity implements Spawnable {
 
     @Override
     public boolean isVisible() {
-        return getY() > 0;
+        return getY() < 1000;
     }
     
 }

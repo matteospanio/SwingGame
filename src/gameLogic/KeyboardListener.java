@@ -1,4 +1,6 @@
-package gameClasses;
+package gameLogic;
+
+import gameClasses.Spaceship;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -6,9 +8,9 @@ import java.awt.event.KeyListener;
 
 public class KeyboardListener implements KeyListener {
     private final Spaceship shooter;
-    private final SpawnableMatrix<Spawnable> spawnable;
+    private final SpawnableMatrix spawnable;
     
-    public KeyboardListener(Spaceship g, SpawnableMatrix<Spawnable> s) {
+    public KeyboardListener(Spaceship g, SpawnableMatrix s) {
         this.shooter = g;
         this.spawnable = s;
     }

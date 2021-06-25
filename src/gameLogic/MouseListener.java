@@ -1,13 +1,15 @@
-package gameClasses;
+package gameLogic;
+
+import gameClasses.Spaceship;
 
 import java.awt.event.MouseEvent;
 
 public class MouseListener implements java.awt.event.MouseMotionListener {
 
     private final Spaceship shooter;
-    private final SpawnableMatrix<Spawnable> spawnable;
+    private final SpawnableMatrix spawnable;
 
-    public MouseListener(Spaceship g, SpawnableMatrix<Spawnable> s) {
+    public MouseListener(Spaceship g, SpawnableMatrix s) {
         this.shooter = g;
         this.spawnable = s;
     }

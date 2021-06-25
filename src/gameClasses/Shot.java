@@ -16,6 +16,6 @@ public class Shot extends AbstractGameEntity implements Spawnable {
 
     @Override
     public boolean isVisible() {
-        return getY() < 1000;
+        return getY() > -100;
     }
 }
