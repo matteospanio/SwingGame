@@ -39,12 +39,12 @@ public class SpawnableMatrix implements Iterable<Spawnable> {
         return aliens.isEmpty();
     }
 
-    //TODO: sistemare la concorrenza nella remove e evitare che si spacchi tutto
-    public void removeIf(Predicate<?  super Spawnable> filter) {
+    public void removeIf(Predicate<? super Spawnable> filter) {
         aliens.removeIf(filter);
         shots.removeIf(filter);
     }
 
+    //TODO: dovrebbe eliminare anche i proiettili dopo che hanno colpito...
     public void collisions() {
         for (Spawnable s : shots) {
             aliens.removeIf(a -> a.hasCollided(s));
