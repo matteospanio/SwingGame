@@ -8,8 +8,8 @@ import java.util.function.Predicate;
 
 public class SpawnableMatrix implements Iterable<Spawnable> {
 
-    private final List<Spawnable> aliens;
-    private final List<Spawnable> shots;
+    private final List<Alien> aliens;
+    private final List<Shot> shots;
 
     public SpawnableMatrix() {
         aliens = new LinkedList<>();
@@ -28,10 +28,10 @@ public class SpawnableMatrix implements Iterable<Spawnable> {
 
     public void add(@NotNull Spawnable e) {
         if (e instanceof Alien) {
-            aliens.add(e);
+            aliens.add( (Alien) e);
         }
         else {
-            shots.add(e);
+            shots.add( (Shot) e);
         }
     }
 
@@ -46,10 +46,11 @@ public class SpawnableMatrix implements Iterable<Spawnable> {
 
     //TODO: dovrebbe eliminare anche i proiettili dopo che hanno colpito...
     public void collisions() {
-        for (Spawnable s : shots) {
-            aliens.removeIf(a -> a.hasCollided(s));
+        for (Shot s : shots) {
+            if (aliens.removeIf(a -> a.hasCollided(s)))
+                s.setHasExpired(true);
         }
-        //shots.removeIf(s -> s.hasCollided(aliens));
+        shots.removeIf(Shot::getHasExpired);
     }
 
     @NotNull
