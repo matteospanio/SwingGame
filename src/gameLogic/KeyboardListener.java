@@ -1,16 +1,18 @@
-package gameClasses;
+package gameLogic;
+
+import gameClasses.Spaceship;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 
 public class KeyboardListener implements KeyListener {
-    private Spaceship shooter;
-    private GameRules game;
+    private final Spaceship shooter;
+    private final SpawnableMatrix spawnable;
     
-    public KeyboardListener(Spaceship g, GameRules game) {
+    public KeyboardListener(Spaceship g, SpawnableMatrix s) {
         this.shooter = g;
-        this.game = game;
+        this.spawnable = s;
     }
 
     @Override
@@ -23,7 +25,7 @@ public class KeyboardListener implements KeyListener {
                 shooter.move(shooter.getMvtOffset() * -1);
                 break;
             case KeyEvent.VK_SPACE:
-                shooter.shoot(game);
+                shooter.shoot(spawnable);
                 break;
             default:
                 break;
